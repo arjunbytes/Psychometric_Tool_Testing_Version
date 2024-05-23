@@ -104,3 +104,53 @@ def survey_view(request):
 
     return render(request, 'survey.html', {'form': form})
 
+@login_required
+def survey_thanks_view(request):
+    return render(request, 'survey_thanks.html')
+
+@login_required
+def survey_thanks_view(request):
+    # Retrieve the latest SurveyResponse object
+    latest_response = SurveyResponse.objects.latest('id')
+    return render(request, 'survey_thanks.html', {'latest_response': latest_response})
+
+@login_required
+def survey_thanks_view(request):
+    # Retrieve the latest SurveyResponse object
+    latest_response = SurveyResponse.objects.latest('id')
+
+    # Calculate the sum of digits in questions 1, 2, and 3
+    question1_sum = sum(int(digit) for digit in str(latest_response.question1))
+    question2_sum = sum(int(digit) for digit in str(latest_response.question2))
+    question3_sum = sum(int(digit) for digit in str(latest_response.question3))
+    question4_sum = sum(int(digit) for digit in str(latest_response.question4))
+    question5_sum = sum(int(digit) for digit in str(latest_response.question5))
+    question6_sum = sum(int(digit) for digit in str(latest_response.question6))
+    question7_sum = sum(int(digit) for digit in str(latest_response.question7))
+    question8_sum = sum(int(digit) for digit in str(latest_response.question8))
+    question9_sum = sum(int(digit) for digit in str(latest_response.question9))
+    question10_sum = sum(int(digit) for digit in str(latest_response.question10))
+
+    a = question1_sum + question2_sum + question3_sum
+    b = question4_sum + question5_sum + question6_sum
+    c = question7_sum + question8_sum + question9_sum
+    d = question10_sum
+    total_sum = a + b + c + d 
+
+
+    if total_sum <= 10:
+            result = "Inefficient"
+    else:
+            result = "Efficient"
+
+
+    # Pass the total_sum to the template
+    return render(request, 'survey_thanks.html', {
+        'latest_response': latest_response,
+        'a' : a,
+        'b' : b,
+        'c' : c,
+        'd' : d,
+        'total_sum': total_sum,
+        'result' : result
+    })
