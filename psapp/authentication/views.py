@@ -102,7 +102,7 @@ def survey_view(request):
     else:
         form = SurveyForm()
 
-    return render(request, 'survey.html', {'form': form})
+    return render(request, 'home.html', {'form': form})
 
 @login_required
 def survey_thanks_view(request):
